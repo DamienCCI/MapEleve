@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="barbottomcolor">#FFD05300</color>
+    <color name="textbarbottomcolor">#FFFFFF</color>
+
+    <color name="textbartopcolor">#FFFFFF</color>
+    <color name="textlistview">#FFFFFF</color>
+    <color name="textRecherche">#FFFFFF</color>
+    <color name="texttabhost">#FFFFFF</color>
+    <color name="fondelmtlist">#000000</color>
+    <color name="fondrecherche">#000000</color>
+    <color name="textbutton">#FFFFFF</color>
+    <color name="button">#FFD05300</color>
+
+    <!--     COULEURS PRIMAIRE      -->
+    <color name="primary">#C60219</color>
+    <color name="primaryDark">#ff740214</color>
+
+
+    <!--           TOOLBAR                    -->
+    <color name="bartopcolor">#C60219</color>
+    <color name="bartextColorSecondary">@color/abc_primary_text_material_dark</color>
+    <color name="baractionMenuTextColor">@color/abc_primary_text_material_dark</color>
+    <color name="bartextColorPrimary">@color/abc_primary_text_material_dark</color>
+
+
+    <!--          NAVIGATION DRAWER           -->
+    <color name="drawerbackground">#E3E3E3</color>
+    <color name="drawerpressed">#C60219</color>
+    <color name="draweractivated">#C60219</color>
+
+</resources>

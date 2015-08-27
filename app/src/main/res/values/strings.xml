@@ -1,6 +1,14 @@
 <resources>
     <string name="app_name">MapEleve</string>
+    <string name="title_activity_maps">MapEleve</string>
 
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+
+    <string name="drawerOpen">MapEleve</string>
+    <string name="drawerClose">MapEleve</string>
+
+    <string-array name="drawerArray">
+        <item>Liste des élèves</item>
+        <item>Planning</item>
+    </string-array>
 </resources>
