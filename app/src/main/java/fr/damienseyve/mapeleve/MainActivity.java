@@ -1,6 +1,7 @@
 package fr.damienseyve.mapeleve;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
@@ -12,7 +13,14 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class MainActivity extends FragmentActivity {
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
+public class MainActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private String[] listeMenu;
     private DrawerLayout drawerLayout;
@@ -54,12 +62,21 @@ public class MainActivity extends FragmentActivity {
             {
                 switch (position) {
                     case 0:
-                        Toast.makeText(ctx, "Liste des élèves", Toast.LENGTH_LONG).show();
+                        //Création d'une nouvelle Intent pour passer sur l'activité Liste d'élève
+                        Intent intentListe = new Intent(MainActivity.this, ListeEleveActivity.class);
+                        // Permet de supprimer l'effet de transition de base et rends l'expérience plus fluide
+                        intentListe.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                        startActivity(intentListe);
                         break;
                     case 1:
-                        Toast.makeText(ctx, "Planning", Toast.LENGTH_LONG).show();
+                        //Création d'une nouvelle Intent pour passer sur l'activité Planning
+                        Intent intentPlanning = new Intent(MainActivity.this, PlanningActivity.class);
+                        // Permet de supprimer l'effet de transition de base et rends l'expérience plus fluide
+                        intentPlanning.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                        startActivity(intentPlanning);
                         break;
                 }
+                //Fermeture du tirroir
                 drawerLayout.closeDrawer(drawerListView);
             }
         });
@@ -92,6 +109,10 @@ public class MainActivity extends FragmentActivity {
 
         // Synchronisation de l'état du tirroir
         drawerListener.syncState();
+
+        MapFragment mapFragment = (MapFragment) getFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
     }
 
     @Override
@@ -102,5 +123,37 @@ public class MainActivity extends FragmentActivity {
 
     public MainActivity getMainActivity(){
         return this;
+    }
+
+    @Override
+    public void onMapReady(GoogleMap map) {
+
+        LatLng colmar = new LatLng(48.0833, 7.3667);
+
+        // Bouton pour repositionner la camera sur la position
+        map.setMyLocationEnabled(true);
+
+        // Mouvement de camera a l'ouverture
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(colmar, 13));
+
+        // Vue normale
+        map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+
+        //Vue satellite
+        //map.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+
+        // Vue normale avec les terrains d'une couleur differente + Relief
+        //map.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+
+        // Vue avec rien du tout
+        //map.setMapType(GoogleMap.MAP_TYPE_NONE);
+
+        // Hybrid : Vue satellite + Nom des villes et des rues
+        //map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+
+        // Marqueur
+        map.addMarker(new MarkerOptions()
+                .position(colmar)
+                .flat(true));
     }
 }
