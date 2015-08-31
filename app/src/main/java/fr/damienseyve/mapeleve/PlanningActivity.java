@@ -1,34 +1,90 @@
 package fr.damienseyve.mapeleve;
 
 import android.app.Activity;
+import android.os.Bundle;
+import android.provider.CalendarContract;
+import android.accounts.AccountManager;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
+import android.content.SharedPreferences;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.TextView;
 
-public class PlanningActivity  extends Activity {
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.api.client.extensions.android.http.AndroidHttp;
+import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
+import com.google.api.client.http.HttpTransport;
+import com.google.api.client.json.JsonFactory;
+import com.google.api.client.json.gson.GsonFactory;
+import com.google.api.services.calendar.CalendarScopes;
 
+import java.util.Collections;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+
+public class PlanningActivity extends Activity {
+
+
+    private static final Level LOGGING_LEVEL = Level.OFF;
+    private static final String PREF_ACCOUNT_NAME = "accountName";
+    static final String TAG = "PlanningActivity";
+    static final int REQUEST_GOOGLE_PLAY_SERVICES = 0;
+    static final int REQUEST_AUTHORIZATION = 1;
+    static final int REQUEST_ACCOUNT_PICKER = 2;
+    final HttpTransport transport = AndroidHttp.newCompatibleTransport();
+    final JsonFactory jsonFactory = GsonFactory.getDefaultInstance();
+    GoogleAccountCredential credential;
+    CalendarModel model = new CalendarModel();
+    ArrayAdapter<CalendarInfo> adapter;
+    com.google.api.services.calendar.Calendar client;
+    int numAsyncTasks;
+    private ListView listView;
     private String[] listeMenu;
     private DrawerLayout drawerLayout;
     private ListView drawerListView;
     private ActionBarDrawerToggle drawerListener;
+    private MainActivity mainActivity;
     private Toolbar toolbar;
+
+
+    // Projection array. Creating indices for this array instead of doing
+    // dynamic lookups improves performance.
+    public static final String[] EVENT_PROJECTION = new String[] {
+            CalendarContract.Calendars._ID,                           // 0
+            CalendarContract.Calendars.ACCOUNT_NAME,                  // 1
+            CalendarContract.Calendars.CALENDAR_DISPLAY_NAME,         // 2
+            CalendarContract.Calendars.OWNER_ACCOUNT                  // 3
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_planning);
 
-        // Création de la variable ctx dans le but de réduire un maximun le nombre d'appel
-        // de la méthode getApplicationContext
-        final Context ctx = getApplicationContext();
+        Logger.getLogger("com.google.api.client").setLevel(LOGGING_LEVEL);
+        // view and menu
+
+        listView = (ListView) findViewById(R.id.list);
+        registerForContextMenu(listView);
+        // Google Accounts
+        credential =
+                GoogleAccountCredential.usingOAuth2(this, Collections.singleton(CalendarScopes.CALENDAR));
+        SharedPreferences settings = getPreferences(Context.MODE_PRIVATE);
+        credential.setSelectedAccountName(settings.getString(PREF_ACCOUNT_NAME, null));
+        // Calendar client
+        client = new com.google.api.services.calendar.Calendar.Builder(
+                transport, jsonFactory, credential).setApplicationName("Google-CalendarAndroidSample/1.0")
+                .build();
+
 
         // Toolbar en haut qui contient le bouton pour déployer le drawer et les futurs boutons
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -66,7 +122,7 @@ public class PlanningActivity  extends Activity {
                         startActivity(intentPlanning);
                         break;
                 }
-                // Fermeture du tirroir
+                //Fermeture du tirroir
                 drawerLayout.closeDrawer(drawerListView);
             }
         });
@@ -101,8 +157,97 @@ public class PlanningActivity  extends Activity {
         drawerListener.syncState();
     }
 
+    void showGooglePlayServicesAvailabilityErrorDialog(final int connectionStatusCode) {
+        runOnUiThread(new Runnable() {
+            public void run() {
+                Dialog dialog = GooglePlayServicesUtil.getErrorDialog(
+                        connectionStatusCode, PlanningActivity.this, REQUEST_GOOGLE_PLAY_SERVICES);
+                dialog.show();
+            }
+        });
+    }
+
+    void refreshView() {
+        adapter = new ArrayAdapter<CalendarInfo>(
+                this, android.R.layout.simple_list_item_1, model.toSortedArray()) {
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                // by default it uses toString; override to use summary instead
+                TextView view = (TextView) super.getView(position, convertView, parent);
+                CalendarInfo calendarInfo = getItem(position);
+                view.setText(calendarInfo.summary);
+                return view;
+            }
+        };
+        listView.setAdapter(adapter);
+    }
+
     @Override
-    public void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        drawerListener.syncState();
-    }}
+    protected void onResume() {
+        super.onResume();
+        if (checkGooglePlayServicesAvailable()) {
+            haveGooglePlayServices();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case REQUEST_GOOGLE_PLAY_SERVICES:
+                if (resultCode == Activity.RESULT_OK) {
+                    haveGooglePlayServices();
+                } else {
+                    checkGooglePlayServicesAvailable();
+                }
+                break;
+            case REQUEST_AUTHORIZATION:
+                if (resultCode == Activity.RESULT_OK) {
+                    AsyncLoadCalendars.run(this);
+                } else {
+                    chooseAccount();
+                }
+                break;
+            case REQUEST_ACCOUNT_PICKER:
+                if (resultCode == Activity.RESULT_OK && data != null && data.getExtras() != null) {
+                    String accountName = data.getExtras().getString(AccountManager.KEY_ACCOUNT_NAME);
+                    if (accountName != null) {
+                        credential.setSelectedAccountName(accountName);
+                        SharedPreferences settings = getPreferences(Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = settings.edit();
+                        editor.putString(PREF_ACCOUNT_NAME, accountName);
+                        editor.commit();
+                        AsyncLoadCalendars.run(this);
+                    }
+                }
+                break;
+        }
+    }
+
+
+    /** Check that Google Play services APK is installed and up to date. */
+    private boolean checkGooglePlayServicesAvailable() {
+        final int connectionStatusCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
+        if (GooglePlayServicesUtil.isUserRecoverableError(connectionStatusCode)) {
+            showGooglePlayServicesAvailabilityErrorDialog(connectionStatusCode);
+            return false;
+        }
+        return true;
+    }
+
+    private void haveGooglePlayServices() {
+        // check if there is already an account selected
+        if (credential.getSelectedAccountName() == null) {
+            // ask user to choose account
+            chooseAccount();
+        } else {
+            // load calendars
+            AsyncLoadCalendars.run(this);
+        }
+    }
+
+    private void chooseAccount() {
+        startActivityForResult(credential.newChooseAccountIntent(), REQUEST_ACCOUNT_PICKER);
+    }
+}

@@ -28,4 +28,10 @@ dependencies {
     // Bibliothèque pour accéder aux services Google Play (Voir le SDK Manager pour télécharger
     // Le package nécessaire
     compile 'com.google.android.gms:play-services:6.5.87'
+
+    // Bibliothèque pour le calendrier
+    compile 'com.google.api-client:google-api-client:1.20.0'
+    compile 'com.google.api-client:google-api-client-android:1.20.0'
+    compile 'com.google.api-client:google-api-client-gson:1.20.0'
+    compile 'com.google.apis:google-api-services-calendar:v3-rev125-1.20.0'
 }

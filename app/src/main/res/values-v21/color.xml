@@ -29,4 +29,8 @@
     <color name="drawerpressed">#C60219</color>
     <color name="draweractivated">#C60219</color>
 
+    <color name="title_background">#ff355689</color>
+    <color name="title_text">#ffffffff</color>
+    <color name="title_separator">#40ffffff</color>
+
 </resources>

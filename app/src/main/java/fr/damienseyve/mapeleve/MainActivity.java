@@ -11,14 +11,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MainActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -152,8 +150,8 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         //map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
 
         // Marqueur
-        map.addMarker(new MarkerOptions()
-                .position(colmar)
-                .flat(true));
+        //map.addMarker(new MarkerOptions()
+        //        .position(colmar)
+        //        .flat(true));
     }
 }
