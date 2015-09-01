@@ -68,7 +68,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
                         break;
                     case 1:
                         //Création d'une nouvelle Intent pour passer sur l'activité Planning
-                        Intent intentPlanning = new Intent(MainActivity.this, PlanningActivity.class);
+                        Intent intentPlanning = new Intent(MainActivity.this, ListePlanningActivity.class);
                         // Permet de supprimer l'effet de transition de base et rends l'expérience plus fluide
                         intentPlanning.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                         startActivity(intentPlanning);

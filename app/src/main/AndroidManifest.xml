@@ -37,6 +37,10 @@
             android:label="@string/app_name" >
         </activity>
         <activity
+            android:name=".ListePlanningActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
             android:name=".PlanningActivity"
             android:label="@string/app_name" >
         </activity>
