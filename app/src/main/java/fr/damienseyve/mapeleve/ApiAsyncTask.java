@@ -87,6 +87,10 @@ public class ApiAsyncTask extends AsyncTask<Void, Void, Void> {
             String startString = dateStart.format(start.getValue());
 
             DateTime end = event.getEnd().getDateTime();
+            if (end == null) {
+                // All-day events don't have start times, so just use the start date.
+                end = event.getStart().getDate();
+            }
             SimpleDateFormat dateEnd = new SimpleDateFormat ("HH:mm");
             String endString = dateEnd.format(end.getValue());
 

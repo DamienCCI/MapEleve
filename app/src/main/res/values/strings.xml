@@ -7,27 +7,39 @@
     <string name="drawerOpen">MapEleve</string>
     <string name="drawerClose">MapEleve</string>
 
-    <string name="accounts">Accounts</string>
-    <string name="description_add">Add Calendar</string>
+    <string name="accounts">Compte</string>
+    <string name="description_add">Ajout Calendrier</string>
     <string name="summary">Title</string>
     <string name="summary_hint">Enter the calendar title</string>
-    <string name="cancel">Cancel</string>
-    <string name="save">Save</string>
+    <string name="cancel">Annuler</string>
+    <string name="save">Sauvegarder</string>
     <string name="icon_desc">Application icon</string>
     <string name="title_separator_desc">Title separator</string>
-    <string name="refresh">Refresh</string>
+    <string name="refresh">Rafraichir</string>
     <string name="batchadd">Copy Calendar x3 (Batch)</string>
     <string name="edit">Edit Calendar</string>
     <string name="delete">Delete Calendar</string>
     <string name="delete_title">Delete Calendar?</string>
-    <string name="yes">Yes</string>
-    <string name="no">No</string>
-    <string name="error">Error</string>
-    <string name="error_format">Error] %s</string>
+    <string name="yes">Oui</string>
+    <string name="no">Non</string>
+    <string name="error">Erreur</string>
+    <string name="error_format">Erreur : %s</string>
     <string name="planning">Planning</string>
 
     <string-array name="drawerArray">
         <item>Liste des élèves</item>
         <item>Planning</item>
     </string-array>
+    <string name="title_activity_navigation_drawer">MapEleve</string>
+
+    <string name="title_section1">Liste des élèves</string>
+    <string name="title_section2">Planning</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="actionAjouter">Ajouter</string>
+
+    <string name="title_activity_nd">NDActivity</string>
+
 </resources>

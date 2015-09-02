@@ -22,7 +22,9 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
-    //Bibliothèque pour le navigation drawer
+    // Bibliothèque pour le Navigation Drawer
+    compile 'com.android.support:support-v4:23.0.0'
+    
     compile 'com.android.support:appcompat-v7:21.0.3'
 
     // Bibliothèque pour accéder aux services Google Play (Voir le SDK Manager pour télécharger

@@ -171,7 +171,7 @@ public class PlanningActivity extends Activity {
      * Fill the data TextView with the given List of Strings; called from
      * background threads and async tasks that need to update the UI (in the
      * UI thread).
-     * @param dataStrings a List of Strings to populate the main TextView with.
+     * @param dataStrings a List of Strings to populate the menu_main TextView with.
      */
     public void updateResultsText(final List<String> dataStrings) {
         runOnUiThread(new Runnable() {
