@@ -15,6 +15,7 @@ import android.widget.ListView;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 
@@ -30,7 +31,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_old);
+        //setContentView(R.layout.activity_main_old);
 
         mainActivity = getMainActivity();
 
@@ -108,9 +109,18 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         // Synchronisation de l'état du tirroir
         drawerListener.syncState();
 
-        MapFragment mapFragment = (MapFragment) getFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+//        MapFragment mapFragment = (MapFragment) getFragmentManager()
+//                .findFragmentById(R.id.map);
+//        mapFragment.getMapAsync(this);
+
+        MapView  mapView = null;
+        mapView.onCreate(savedInstanceState);
+
+        // Gets to GoogleMap from the MapView and does initialization stuff
+       GoogleMap map = mapView.getMap();
+        map.getUiSettings().setMyLocationButtonEnabled(false);
+        map.setMyLocationEnabled(true);
+
     }
 
     @Override
@@ -138,19 +148,19 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
         //Vue satellite
-        //map.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+        //fragment_map.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
 
         // Vue normale avec les terrains d'une couleur differente + Relief
-        //map.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+        //fragment_map.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
 
         // Vue avec rien du tout
-        //map.setMapType(GoogleMap.MAP_TYPE_NONE);
+        //fragment_map.setMapType(GoogleMap.MAP_TYPE_NONE);
 
         // Hybrid : Vue satellite + Nom des villes et des rues
-        //map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+        //fragment_map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
 
         // Marqueur
-        //map.addMarker(new MarkerOptions()
+        //fragment_map.addMarker(new MarkerOptions()
         //        .position(colmar)
         //        .flat(true));
     }

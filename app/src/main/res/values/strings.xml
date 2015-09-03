@@ -32,8 +32,9 @@
     </string-array>
     <string name="title_activity_navigation_drawer">MapEleve</string>
 
-    <string name="title_section1">Liste des élèves</string>
-    <string name="title_section2">Planning</string>
+    <string name="title_section1">Accueil</string>
+    <string name="title_section2">Liste des élèves</string>
+    <string name="title_section3">Planning</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
