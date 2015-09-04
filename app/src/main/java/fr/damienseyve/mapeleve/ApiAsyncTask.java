@@ -13,23 +13,24 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Calendar;
+import java.util.Locale;
 
 /**
  * An asynchronous task that handles the Google Calendar API call.
  * Placing the API calls in their own task ensures the UI stays responsive.
  */
 public class ApiAsyncTask extends AsyncTask<Void, Void, Void> {
-    private PlanningActivity mActivity;
+
+    private PlanningFragment planningFragment;
+
 
     /**
      * Constructor.
      * @param activity MainActivity that spawned this task.
      */
-    ApiAsyncTask(PlanningActivity activity) {
-        this.mActivity = activity;
+    ApiAsyncTask(PlanningFragment activity) {
+        this.planningFragment = activity;
     }
 
     /**
@@ -39,20 +40,20 @@ public class ApiAsyncTask extends AsyncTask<Void, Void, Void> {
     @Override
     protected Void doInBackground(Void... params) {
         try {
-            mActivity.clearResultsText();
-            mActivity.updateResultsText(getDataFromApi());
+            planningFragment.clearResultsText();
+            planningFragment.updateResultsText(getDataFromApi());
 
         } catch (final GooglePlayServicesAvailabilityIOException availabilityException) {
-            mActivity.showGooglePlayServicesAvailabilityErrorDialog(
+            planningFragment.showGooglePlayServicesAvailabilityErrorDialog(
                     availabilityException.getConnectionStatusCode());
 
         } catch (UserRecoverableAuthIOException userRecoverableException) {
-            mActivity.startActivityForResult(
+            planningFragment.startActivityForResult(
                     userRecoverableException.getIntent(),
-                    PlanningActivity.REQUEST_AUTHORIZATION);
+                    planningFragment.REQUEST_AUTHORIZATION);
 
         } catch (Exception e) {
-            mActivity.updateStatus("The following error occurred:\n" +
+            planningFragment.updateStatus("L'erreur suivante c'est produit :\n" +
                     e.getMessage());
         }
         return null;
@@ -63,11 +64,11 @@ public class ApiAsyncTask extends AsyncTask<Void, Void, Void> {
      * @return List of Strings describing returned events.
      * @throws IOException
      */
-    private List<String> getDataFromApi() throws IOException, ParseException {
+    private List<Planning> getDataFromApi() throws IOException, ParseException {
         // Liste les 10 prochains événements du calendrier principal.
         DateTime now = new DateTime(System.currentTimeMillis());
-        List<String> eventStrings = new ArrayList<String>();
-        Events events = mActivity.mService.events().list(CalendarInfo.calendarInfoSelect.id)
+        List<Planning> eventStrings = new ArrayList<Planning>();
+        Events events = planningFragment.mService.events().list(CalendarInfo.calendarInfoSelect.id)
                 .setMaxResults(100)
                 .setTimeMin(now)
                 .setOrderBy("startTime")
@@ -78,30 +79,42 @@ public class ApiAsyncTask extends AsyncTask<Void, Void, Void> {
 
         for (Event event : items)
         {
-            DateTime start = event.getStart().getDateTime();
-            if (start == null) {
+            DateTime date = event.getStart().getDateTime();
+            if (date == null) {
                 // All-day events don't have start times, so just use the start date.
-                start = event.getStart().getDate();
+                date = event.getStart().getDate();
             }
-            SimpleDateFormat dateStart = new SimpleDateFormat ("dd/MM/yyyy HH:mm");
-            String startString = dateStart.format(start.getValue());
+            SimpleDateFormat dateStart = new SimpleDateFormat ("dd/MM/yyyy", Locale.FRANCE);
+            String startString = dateStart.format(date.getValue());
 
-            DateTime end = event.getEnd().getDateTime();
-            if (end == null) {
+
+            DateTime heureDebDateTime = event.getStart().getDateTime();
+            if (heureDebDateTime == null) {
                 // All-day events don't have start times, so just use the start date.
-                end = event.getStart().getDate();
+                heureDebDateTime = event.getStart().getDate();
             }
-            SimpleDateFormat dateEnd = new SimpleDateFormat ("HH:mm");
-            String endString = dateEnd.format(end.getValue());
+            SimpleDateFormat heureDeb = new SimpleDateFormat ("HH:mm", Locale.FRANCE);
+            String heureDebString = heureDeb.format(heureDebDateTime.getValue());
+
+
+            DateTime heureFinDateTime = event.getEnd().getDateTime();
+            if (heureFinDateTime == null) {
+                // All-day events don't have start times, so just use the start date.
+                heureFinDateTime = event.getStart().getDate();
+            }
+            SimpleDateFormat heureFin = new SimpleDateFormat ("HH:mm", Locale.FRANCE);
+            String heureFinString = heureFin.format(heureFinDateTime.getValue());
+
+            String summary = event.getSummary();
 
             String lieux = event.getLocation();
             if (lieux == null){
                 lieux = "Domicile";
             }
 
-            eventStrings.add(String.format("%s - %s / %s - %s", startString, endString, event.getSummary(), lieux));
+            Planning p = new Planning(startString, heureDebString, heureFinString, summary, lieux);
+            eventStrings.add(p);
         }
         return eventStrings;
     }
-
 }

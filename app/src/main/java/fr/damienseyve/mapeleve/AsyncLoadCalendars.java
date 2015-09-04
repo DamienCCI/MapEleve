@@ -7,7 +7,7 @@ import java.io.IOException;
 
 public class AsyncLoadCalendars extends CalendarAsyncTask {
 
-    AsyncLoadCalendars(ListePlanningActivity calendarSample) {
+    AsyncLoadCalendars(ListePlanningFragment calendarSample) {
         super(calendarSample);
     }
 
@@ -17,7 +17,7 @@ public class AsyncLoadCalendars extends CalendarAsyncTask {
         model.reset(feed.getItems());
     }
 
-    static void run(ListePlanningActivity calendarSample) {
+    static void run(ListePlanningFragment calendarSample) {
         new AsyncLoadCalendars(calendarSample).execute();
     }
 }

@@ -4,7 +4,7 @@
     <color name="textbarbottomcolor">#FFFFFF</color>
 
     <color name="textbartopcolor">#FFFFFF</color>
-    <color name="textlistview">#FFFFFF</color>
+    <color name="textlistview">#000000</color>
     <color name="textRecherche">#FFFFFF</color>
     <color name="texttabhost">#FFFFFF</color>
     <color name="fondelmtlist">#000000</color>

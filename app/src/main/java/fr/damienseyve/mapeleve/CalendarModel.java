@@ -1,7 +1,6 @@
 package fr.damienseyve.mapeleve;
 
 
-import com.google.api.services.calendar.model.Calendar;
 import com.google.api.services.calendar.model.CalendarListEntry;
 
 import java.util.ArrayList;
@@ -22,26 +21,9 @@ public class CalendarModel {
         }
     }
 
-    void remove(String id) {
-        synchronized (calendars) {
-            calendars.remove(id);
-        }
-    }
-
     CalendarInfo get(String id) {
         synchronized (calendars) {
             return calendars.get(id);
-        }
-    }
-
-    void add(Calendar calendarToAdd) {
-        synchronized (calendars) {
-            CalendarInfo found = get(calendarToAdd.getId());
-            if (found == null) {
-                calendars.put(calendarToAdd.getId(), new CalendarInfo(calendarToAdd));
-            } else {
-                found.update(calendarToAdd);
-            }
         }
     }
 

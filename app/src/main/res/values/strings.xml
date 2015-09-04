@@ -25,6 +25,7 @@
     <string name="error">Erreur</string>
     <string name="error_format">Erreur : %s</string>
     <string name="planning">Planning</string>
+    <string name="statut">Statut</string>
 
     <string-array name="drawerArray">
         <item>Liste des élèves</item>
@@ -39,7 +40,8 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="actionAjouter">Ajouter</string>
+    <string name="action_ajouter">Ajouter</string>
+    <string name="action_editer">Editer</string>
 
     <string name="title_activity_nd">NDActivity</string>
 

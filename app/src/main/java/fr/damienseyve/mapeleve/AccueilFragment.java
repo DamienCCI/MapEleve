@@ -25,7 +25,7 @@ public class AccueilFragment extends Fragment implements OnMapReadyCallback {
         gMapView.onCreate(savedInstanceState);
         gMapView.getMapAsync(this);
 
-        // Initialise
+        // Initialise la carte.
         MapsInitializer.initialize(this.getActivity());
 
         return layout;
@@ -34,7 +34,7 @@ public class AccueilFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap map) {
 
-        LatLng colmar = new LatLng(48.0833, 7.3667);
+        LatLng colmar = new LatLng(48.0783953, 7.3516607);
 
         // Bouton pour repositionner la camera sur la position
         map.setMyLocationEnabled(true);
@@ -44,15 +44,11 @@ public class AccueilFragment extends Fragment implements OnMapReadyCallback {
 
         // Mouvement de camera a l'ouverture
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(colmar, 13));
-
-        // Marqueur
-        //map.addMarker(new MarkerOptions()
-        //        .position(colmar)
-        //        .flat(true));
     }
 
     @Override
     public void onResume() {
+        gMapView.onResume();
         super.onResume();
     }
 
@@ -63,6 +59,7 @@ public class AccueilFragment extends Fragment implements OnMapReadyCallback {
 
     @Override
     public void onLowMemory() {
+        gMapView.onLowMemory();
         super.onLowMemory();
     }
 
