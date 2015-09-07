@@ -5,7 +5,6 @@ import com.google.api.client.googleapis.extensions.android.gms.auth.GooglePlaySe
 import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecoverableAuthIOException;
 
 import android.os.AsyncTask;
-import android.view.View;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -17,12 +16,12 @@ import java.io.IOException;
 
 abstract class CalendarAsyncTask extends AsyncTask<Void, Void, Boolean> {
 
-    final ListePlanningFragment activity;
+    final PlanningListeFragment activity;
     final CalendarModel model;
     final com.google.api.services.calendar.Calendar client;
     //private final View progressBar;
 
-    CalendarAsyncTask(ListePlanningFragment activity) {
+    CalendarAsyncTask(PlanningListeFragment activity) {
         this.activity = activity;
         model = activity.model;
         client = activity.client;
@@ -46,7 +45,7 @@ abstract class CalendarAsyncTask extends AsyncTask<Void, Void, Boolean> {
                     availabilityException.getConnectionStatusCode());
         } catch (UserRecoverableAuthIOException userRecoverableException) {
             activity.startActivityForResult(
-                    userRecoverableException.getIntent(), ListePlanningFragment.REQUEST_AUTHORIZATION);
+                    userRecoverableException.getIntent(), PlanningListeFragment.REQUEST_AUTHORIZATION);
         } catch (IOException e) {
             activity.getActivity().runOnUiThread(new Runnable() {
                 public void run() {

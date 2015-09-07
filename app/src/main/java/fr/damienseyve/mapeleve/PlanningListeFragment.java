@@ -11,6 +11,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -31,7 +34,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-public class ListePlanningFragment extends Fragment {
+public class PlanningListeFragment extends Fragment {
 
     private static final Level LOGGING_LEVEL = Level.OFF;
     private static final String PREF_ACCOUNT_NAME = "accountName";
@@ -53,8 +56,8 @@ public class ListePlanningFragment extends Fragment {
         View layout = inflater.inflate(R.layout.fragment_liste_planning, container, false);
 
         Logger.getLogger("com.google.api.client").setLevel(LOGGING_LEVEL);
-        listView = (ListView) layout.findViewById(R.id.lvListePlanning);
-        registerForContextMenu(listView);
+
+
         // Google Accounts
         credential = GoogleAccountCredential.usingOAuth2(this.getActivity(), Collections.singleton(CalendarScopes.CALENDAR));
         SharedPreferences settings = this.getActivity().getPreferences(Context.MODE_PRIVATE);
@@ -63,6 +66,8 @@ public class ListePlanningFragment extends Fragment {
         client = new com.google.api.services.calendar.Calendar.Builder(
                 transport, jsonFactory, credential).setApplicationName("Google-CalendarAndroidSample/1.0")
                 .build();
+
+        listView = (ListView) layout.findViewById(R.id.lvListePlanning);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -83,6 +88,17 @@ public class ListePlanningFragment extends Fragment {
         return layout;
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_planning_liste, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+         return super.onOptionsItemSelected(item);
+    }
+
     void showGooglePlayServicesAvailabilityErrorDialog(final int connectionStatusCode) {
         getActivity().runOnUiThread(new Runnable() {
             public void run() {
@@ -91,6 +107,13 @@ public class ListePlanningFragment extends Fragment {
                 dialog.show();
             }
         });
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        // Indicate that this fragment would like to influence the set of actions in the action bar.
+        setHasOptionsMenu(true);
     }
 
     void refreshView() {
@@ -140,7 +163,7 @@ public class ListePlanningFragment extends Fragment {
                 break;
             case REQUEST_AUTHORIZATION:
                 if (resultCode == Activity.RESULT_OK) {
-                    AsyncLoadCalendars.run(this);
+                    CalendarsAsyncLoad.run(this);
                 } else {
                     chooseAccount();
                 }
@@ -154,7 +177,7 @@ public class ListePlanningFragment extends Fragment {
                         SharedPreferences.Editor editor = settings.edit();
                         editor.putString(PREF_ACCOUNT_NAME, accountName);
                         editor.commit();
-                        AsyncLoadCalendars.run(this);
+                        CalendarsAsyncLoad.run(this);
                     }
                 }
                 break;
@@ -178,7 +201,7 @@ public class ListePlanningFragment extends Fragment {
             chooseAccount();
         } else {
             // load calendars
-            AsyncLoadCalendars.run(this);
+            CalendarsAsyncLoad.run(this);
         }
     }
 

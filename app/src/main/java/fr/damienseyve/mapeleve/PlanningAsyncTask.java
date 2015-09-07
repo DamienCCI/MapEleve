@@ -20,7 +20,7 @@ import java.util.Locale;
  * An asynchronous task that handles the Google Calendar API call.
  * Placing the API calls in their own task ensures the UI stays responsive.
  */
-public class ApiAsyncTask extends AsyncTask<Void, Void, Void> {
+public class PlanningAsyncTask extends AsyncTask<Void, Void, Void> {
 
     private PlanningFragment planningFragment;
 
@@ -29,7 +29,7 @@ public class ApiAsyncTask extends AsyncTask<Void, Void, Void> {
      * Constructor.
      * @param activity MainActivity that spawned this task.
      */
-    ApiAsyncTask(PlanningFragment activity) {
+    PlanningAsyncTask(PlanningFragment activity) {
         this.planningFragment = activity;
     }
 

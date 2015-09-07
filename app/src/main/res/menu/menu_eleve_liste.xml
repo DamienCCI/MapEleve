@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item android:id="@+id/action_ajouter"
         android:icon="@android:drawable/ic_menu_add"
         android:title="@string/action_ajouter"
-        app:showAsAction="ifRoom" />
-
-    <item android:id="@+id/action_editer"
-        android:icon="@android:drawable/ic_menu_edit"
-        android:title="@string/action_editer"
         app:showAsAction="ifRoom" />
 
 </menu>

@@ -13,8 +13,6 @@ import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -50,10 +48,6 @@ public class PlanningFragment extends Fragment {
     private TextView mStatusText;
     private ListView mResultsLv;
 
-    private ActionBarDrawerToggle mDrawerToggle;
-    private View mFragmentContainerView;
-    private DrawerLayout mDrawerLayout;
-
     static final int REQUEST_ACCOUNT_PICKER = 1000;
     static final int REQUEST_AUTHORIZATION = 1001;
     static final int REQUEST_GOOGLE_PLAY_SERVICES = 1002;
@@ -87,6 +81,22 @@ public class PlanningFragment extends Fragment {
     }
 
     @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_planning, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_synchro) {
+            refreshResults();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         // Indicate that this fragment would like to influence the set of actions in the action bar.
@@ -117,7 +127,7 @@ public class PlanningFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        switch(requestCode) {
+        switch (requestCode) {
             case REQUEST_GOOGLE_PLAY_SERVICES:
                 if (resultCode != Activity.RESULT_OK) {
                     isGooglePlayServicesAvailable();
@@ -161,7 +171,7 @@ public class PlanningFragment extends Fragment {
             chooseAccount();
         } else {
             if (isDeviceOnline()) {
-                new ApiAsyncTask(this).execute();
+                new PlanningAsyncTask(this).execute();
             } else {
                 mStatusText.setText("Pas de connexion Internet disponible.");
             }
@@ -219,8 +229,6 @@ public class PlanningFragment extends Fragment {
             }
         });
     }
-
-
 
     /**
      * Démarre un activité Google Play Services pour que l'utilisateur se connecte.

@@ -33,6 +33,22 @@
     </string-array>
     <string name="title_activity_navigation_drawer">MapEleve</string>
 
+    <string-array name="listEleveArray">
+        <item>Alice Liddell</item>
+        <item>Anne Hathaway</item>
+        <item>Barney Stinsons</item>
+        <item>Bradley Cooper</item>
+        <item>Kid Cudi</item>
+        <item>Taylor Swift</item>
+        <item>Snoop Dogg</item>
+        <item>Kanye West</item>
+        <item>Robbie Williams</item>
+        <item>Dr Dre</item>
+        <item>Bruno Mars</item>
+        <item>50 Cent</item>
+        <item>Kendrick Lamar</item>
+    </string-array>
+
     <string name="title_section1">Accueil</string>
     <string name="title_section2">Liste des élèves</string>
     <string name="title_section3">Planning</string>
@@ -42,7 +58,19 @@
 
     <string name="action_ajouter">Ajouter</string>
     <string name="action_editer">Editer</string>
+    <string name="action_synchro">Synchroniser</string>
+    <string name="action_supprimer">Supprimer</string>
 
     <string name="title_activity_nd">NDActivity</string>
+
+    <string name="textPrenomEleve">Prénom :</string>
+    <string name="textNomEleve">Nom :</string>
+    <string name="textAdresseEleve">Adresse :</string>
+    <string name="textCpEleve">Code postal :</string>
+    <string name="textVilleEleve">Ville :</string>
+    <string name="textTelEleve">Téléphone :</string>
+
+    <string name="action_nouvelle_lecon">Commencer une leçon</string>
+    <string name="action_historique">Afficher l\'historique</string>
 
 </resources>

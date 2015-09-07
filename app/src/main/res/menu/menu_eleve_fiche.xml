@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/action_editer"
+        android:icon="@android:drawable/ic_menu_edit"
+        android:title="@string/action_editer"
+        app:showAsAction="ifRoom" />
+
+    <item android:id="@+id/action_historique"
+        android:icon="@android:drawable/ic_menu_myplaces"
+        android:title="@string/action_historique"
+        app:showAsAction="ifRoom" />
+
+    <item android:id="@+id/action_nouvelle_lecon"
+        android:icon="@android:drawable/ic_menu_slideshow"
+        android:title="@string/action_nouvelle_lecon"
+        app:showAsAction="ifRoom" />
+
+</menu>

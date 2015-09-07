@@ -38,24 +38,4 @@ public class Planning {
     public String getLieux() {
         return lieux;
     }
-
-    public void setStartString(String startString) {
-        this.startString = startString;
-    }
-
-    public void setHeureDebString(String heureDebString) {
-        this.heureDebString = heureDebString;
-    }
-
-    public void setHeureFinString(String heureFinString) {
-        this.heureFinString = heureFinString;
-    }
-
-    public void setSummary(String summary) {
-        this.summary = summary;
-    }
-
-    public void setLieux(String lieux) {
-        this.lieux = lieux;
-    }
 }

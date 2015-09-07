@@ -8,7 +8,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.widget.DrawerLayout;
-import android.widget.Toast;
 
 public class NavigationDrawerActivity extends ActionBarActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
@@ -46,7 +45,7 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Navig
                 break;
             case 1:
                 Fragment frgListeEleve;
-                frgListeEleve = new ListeEleveFragment();
+                frgListeEleve = new EleveListeFragment();
                 fragmentManager.beginTransaction()
                         .replace(R.id.container, frgListeEleve)
                         .addToBackStack(null)
@@ -54,7 +53,7 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Navig
                 break;
             case 2:
                 Fragment frgListePlanning;
-                frgListePlanning = new ListePlanningFragment();
+                frgListePlanning = new PlanningListeFragment();
                 fragmentManager.beginTransaction()
                         .replace(R.id.container, frgListePlanning)
                         .addToBackStack(null)

@@ -5,9 +5,9 @@ import com.google.api.services.calendar.model.CalendarList;
 import java.io.IOException;
 
 
-public class AsyncLoadCalendars extends CalendarAsyncTask {
+public class CalendarsAsyncLoad extends CalendarAsyncTask {
 
-    AsyncLoadCalendars(ListePlanningFragment calendarSample) {
+    CalendarsAsyncLoad(PlanningListeFragment calendarSample) {
         super(calendarSample);
     }
 
@@ -17,7 +17,7 @@ public class AsyncLoadCalendars extends CalendarAsyncTask {
         model.reset(feed.getItems());
     }
 
-    static void run(ListePlanningFragment calendarSample) {
-        new AsyncLoadCalendars(calendarSample).execute();
+    static void run(PlanningListeFragment calendarSample) {
+        new CalendarsAsyncLoad(calendarSample).execute();
     }
 }
