@@ -41,6 +41,7 @@ public class PlanningListeFragment extends Fragment {
     static final int REQUEST_GOOGLE_PLAY_SERVICES = 0;
     static final int REQUEST_AUTHORIZATION = 1;
     static final int REQUEST_ACCOUNT_PICKER = 2;
+    static final String TAG = "PlanningActivity";
     final HttpTransport transport = AndroidHttp.newCompatibleTransport();
     final JsonFactory jsonFactory = GsonFactory.getDefaultInstance();
     GoogleAccountCredential credential;

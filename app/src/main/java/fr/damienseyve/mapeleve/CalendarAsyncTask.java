@@ -46,10 +46,10 @@ abstract class CalendarAsyncTask extends AsyncTask<Void, Void, Boolean> {
         } catch (UserRecoverableAuthIOException userRecoverableException) {
             activity.startActivityForResult(
                     userRecoverableException.getIntent(), PlanningListeFragment.REQUEST_AUTHORIZATION);
-        } catch (IOException e) {
+        } catch (final IOException e) {
             activity.getActivity().runOnUiThread(new Runnable() {
                 public void run() {
-                    Toast.makeText(activity.getActivity(), "Pas de connexion Internet, pas de planning", Toast.LENGTH_LONG).show();
+                    Utils.logAndShow(activity.getActivity(), PlanningListeFragment.TAG, e);
                 }
             });
         }
