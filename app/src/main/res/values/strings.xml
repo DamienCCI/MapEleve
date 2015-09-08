@@ -72,5 +72,9 @@
 
     <string name="action_nouvelle_lecon">Commencer une leçon</string>
     <string name="action_historique">Afficher l\'historique</string>
+    <string name="action_annuler_modifier">Annuler</string>
+    <string name="action_valider_modifier">Annuler</string>
+    <string name="action_annuler_ajout">Annuler</string>
+    <string name="action_valider_ajout">Annuler</string>
 
 </resources>

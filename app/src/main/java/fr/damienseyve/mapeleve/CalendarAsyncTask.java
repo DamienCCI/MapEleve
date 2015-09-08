@@ -5,6 +5,7 @@ import com.google.api.client.googleapis.extensions.android.gms.auth.GooglePlaySe
 import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecoverableAuthIOException;
 
 import android.os.AsyncTask;
+import android.widget.TextView;
 
 import java.io.IOException;
 
@@ -48,6 +49,7 @@ abstract class CalendarAsyncTask extends AsyncTask<Void, Void, Boolean> {
         } catch (final IOException e) {
             activity.getActivity().runOnUiThread(new Runnable() {
                 public void run() {
+                    PlanningListeFragment.textView.setText("");
                     Utils.logAndShow(activity.getActivity(), PlanningListeFragment.TAG, e);
                 }
             });

@@ -3,6 +3,7 @@ package fr.damienseyve.mapeleve;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -10,11 +11,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
-/**
- * Created by stagiaire on 07/09/2015.
- */
+
 public class EleveFicheFragment extends Fragment {
 
     public String prenomEleve;
@@ -34,7 +32,7 @@ public class EleveFicheFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View layout = inflater.inflate(R.layout.fragment_fiche_eleve, container, false);
+        View layout = inflater.inflate(R.layout.fragment_eleve_fiche, container, false);
 
         prenomEleve = Eleve.eleveSelect.getPrenomEleve();
         nomEleve = Eleve.eleveSelect.getNomEleve();
@@ -70,21 +68,38 @@ public class EleveFicheFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_eleve_fiche, menu);
+        NavigationDrawerActivity.actionBar.setTitle(Eleve.eleveSelect.getPrenomEleve() + " " +
+                Eleve.eleveSelect.getNomEleve());
         super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         switch (item.getItemId()) {
             case R.id.action_editer:
-                Toast.makeText(getActivity(), "Modifier", Toast.LENGTH_SHORT).show();
+                Fragment frgEleveModif;
+                frgEleveModif = new EleveModifierFragment();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container, frgEleveModif)
+                        .addToBackStack(null)
+                        .commit();
                 return true;
             case R.id.action_historique:
-                Toast.makeText(getActivity(), "Historique", Toast.LENGTH_SHORT).show();
+                Fragment frgEleveLeconHisto;
+                frgEleveLeconHisto = new LeconHistoriqueFragment();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container, frgEleveLeconHisto)
+                        .addToBackStack(null)
+                        .commit();
                 return true;
             case R.id.action_nouvelle_lecon:
-                Toast.makeText(getActivity(), "Lancement d'une nouvelle leçon", Toast.LENGTH_SHORT).show();
+                Fragment frgEleveLecon;
+                frgEleveLecon = new LeconFragment();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container, frgEleveLecon)
+                        .addToBackStack(null)
+                        .commit();
                 return true;
         }
 

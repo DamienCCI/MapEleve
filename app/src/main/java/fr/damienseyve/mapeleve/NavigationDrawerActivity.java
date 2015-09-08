@@ -17,6 +17,8 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Navig
     /**Used to store the last screen title. For use in {@link #restoreActionBar()}.*/
     private CharSequence mTitle;
 
+    static public ActionBar actionBar = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,7 +79,7 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Navig
     }
 
     public void restoreActionBar() {
-        ActionBar actionBar = getSupportActionBar();
+        actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setTitle(mTitle);

@@ -50,11 +50,12 @@ public class PlanningListeFragment extends Fragment {
     com.google.api.services.calendar.Calendar client;
     int numAsyncTasks;
     private ListView listView;
+    static public TextView textView;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View layout = inflater.inflate(R.layout.fragment_liste_planning, container, false);
+        View layout = inflater.inflate(R.layout.fragment_planning_liste, container, false);
 
         Logger.getLogger("com.google.api.client").setLevel(LOGGING_LEVEL);
 
@@ -67,6 +68,9 @@ public class PlanningListeFragment extends Fragment {
         client = new com.google.api.services.calendar.Calendar.Builder(
                 transport, jsonFactory, credential).setApplicationName("Google-CalendarAndroidSample/1.0")
                 .build();
+
+        textView = (TextView) layout.findViewById(R.id.tvStatutListePlanning);
+        textView.setText("Récupération des calendrier...");
 
         listView = (ListView) layout.findViewById(R.id.lvListePlanning);
 
@@ -92,6 +96,7 @@ public class PlanningListeFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_planning_liste, menu);
+        NavigationDrawerActivity.actionBar.setTitle("Liste de planning");
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -131,6 +136,7 @@ public class PlanningListeFragment extends Fragment {
             }
         };
         listView.setAdapter(adapter);
+        textView.setText("Liste des calendriers :");
     }
 
     @Override

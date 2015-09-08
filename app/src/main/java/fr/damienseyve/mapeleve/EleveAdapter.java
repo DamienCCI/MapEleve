@@ -54,7 +54,7 @@ public class EleveAdapter extends BaseAdapter{
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         // On inflate le fichier xml pour creer les composants de la vue
-        itemView = inflater.inflate(R.layout.affichage_listview_planning, null);
+        itemView = inflater.inflate(R.layout.affichage_planning_listview, null);
 
         // On recupere les composants de la vue
         tvPrenomEleve = (TextView)itemView.findViewById(R.id.tvPrenomEleve);
