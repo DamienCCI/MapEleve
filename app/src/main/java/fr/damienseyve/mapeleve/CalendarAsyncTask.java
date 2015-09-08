@@ -5,7 +5,6 @@ import com.google.api.client.googleapis.extensions.android.gms.auth.GooglePlaySe
 import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecoverableAuthIOException;
 
 import android.os.AsyncTask;
-import android.widget.Toast;
 
 import java.io.IOException;
 

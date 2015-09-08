@@ -22,7 +22,7 @@
             android:value="@integer/google_play_services_version" />
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyASIh8Fd92xiKESmr3jzfC8QIN6V6_q4DQ" />
+            android:value="AIzaSyBUai52apX7xMeTsWDPkzYPZ3fg5E-U2UU" />
         <activity
             android:name=".NavigationDrawerActivity"
             android:label="@string/title_activity_navigation_drawer"
