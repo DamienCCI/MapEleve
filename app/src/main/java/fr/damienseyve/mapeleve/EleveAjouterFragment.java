@@ -1,5 +1,6 @@
 package fr.damienseyve.mapeleve;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,11 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 
 
 public class EleveAjouterFragment extends Fragment{
@@ -95,7 +101,9 @@ public class EleveAjouterFragment extends Fragment{
 
                 Eleve newEleve = new Eleve(prenomEleve, nomEleve, adresseEleve, cpEleve, villeEleve, telEleve);
 
-                Toast.makeText(getActivity(), "Validé" + newEleve.toString(), Toast.LENGTH_SHORT).show();
+
+
+                Toast.makeText(getActivity(), "Enregistrer", Toast.LENGTH_SHORT).show();
 
                 Fragment frgListeEleveValide;
                 frgListeEleveValide = new EleveListeFragment();

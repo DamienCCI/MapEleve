@@ -1,9 +1,9 @@
 package fr.damienseyve.mapeleve;
 
-/**
- * Created by stagiaire on 07/09/2015.
- */
-public class Eleve {
+import java.io.Serializable;
+import java.util.List;
+
+public class Eleve implements Serializable {
 
     public String prenomEleve;
     public String nomEleve;
@@ -12,6 +12,7 @@ public class Eleve {
     public String villeEleve;
     public String telEleve;
     public static Eleve eleveSelect;
+    public static List<Eleve> listEleve;
 
     public Eleve(String _prenomEleve, String _nomEleve, String _adresseEleve, String _cpEleve, String _villeEleve, String _telEleve) {
         this.prenomEleve = _prenomEleve;
