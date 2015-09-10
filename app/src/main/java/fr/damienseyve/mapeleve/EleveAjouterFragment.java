@@ -101,8 +101,6 @@ public class EleveAjouterFragment extends Fragment{
 
                 Eleve newEleve = new Eleve(prenomEleve, nomEleve, adresseEleve, cpEleve, villeEleve, telEleve);
 
-
-
                 Toast.makeText(getActivity(), "Enregistrer", Toast.LENGTH_SHORT).show();
 
                 Fragment frgListeEleveValide;

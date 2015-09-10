@@ -35,168 +35,101 @@ import java.util.List;
 public class EleveListeFragment extends Fragment {
 
     ListView listView;
-    List<Eleve> listEleveAffichage = new ArrayList<Eleve>();
     SwipeDetector swipeDetector;
-    Object object;
-    String test;
 
-    //Fichier de sérialisation
-    public static String fileName = "listEleve.ser";
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_eleve_liste, container, false);
 
-        try {
-            FileOutputStream outputStreamWriter = new FileOutputStream(getContext().getDir("Documents", getContext().MODE_PRIVATE) + "/"+fileName, true);
-            outputStreamWriter.write(0);
-            outputStreamWriter.close();
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        ArrayList<Eleve> listEleve1 = new ArrayList<>();
+        ArrayList<Eleve> listEleve = new ArrayList<>();
         Eleve eleve1 = new Eleve("50", "Cent", "12 Rue du Riesling", "68000", "NY", "06 42 23 23 34");
-        listEleve1.add(eleve1);
+        listEleve.add(eleve1);
         Eleve eleve2 = new Eleve("Alice", "Liddell", "12 Rue du Riesling", "68000", "Pays des Merveilles", "06 42 23 23 34");
-        listEleve1.add(eleve2);
+        listEleve.add(eleve2);
         Eleve eleve3 = new Eleve("Anne", "Hathaway", "12 Rue du Riesling", "68000", "Monaco", "06 42 23 23 34");
-        listEleve1.add(eleve3);
+        listEleve.add(eleve3);
         Eleve eleve4 = new Eleve("Barney", "Stinson", "12 Rue du Riesling", "68000", "Colmar", "06 42 23 23 34");
-        listEleve1.add(eleve4);
+        listEleve.add(eleve4);
         Eleve eleve5 = new Eleve("Bradley", "Cooper", "12 Rue du Riesling", "68000", "Colmar", "06 42 23 23 34");
-        listEleve1.add(eleve5);
+        listEleve.add(eleve5);
         Eleve eleve6 = new Eleve("Bruno", "Mars", "12 Rue du Riesling", "68000", "Colmar", "06 42 23 23 34");
-        listEleve1.add(eleve6);
+        listEleve.add(eleve6);
         Eleve eleve7 = new Eleve("Dr", "Dre", "12 Rue du Riesling", "68000", "Colmar", "06 42 23 23 34");
-        listEleve1.add(eleve7);
+        listEleve.add(eleve7);
         Eleve eleve8 = new Eleve("Kanye", "West", "12 Rue du Riesling", "68000", "Colmar", "06 42 23 23 34");
-        listEleve1.add(eleve8);
+        listEleve.add(eleve8);
         Eleve eleve9 = new Eleve("Kendrick", "Lamar", "12 Rue du Riesling", "68000", "Colmar", "06 42 23 23 34");
-        listEleve1.add(eleve9);
+        listEleve.add(eleve9);
         Eleve eleve10 = new Eleve("Kid", "Cudi", "12 Rue du Riesling", "68000", "Colmar", "06 42 23 23 34");
-        listEleve1.add(eleve10);
+        listEleve.add(eleve10);
         Eleve eleve11 = new Eleve("Robbie", "Williams", "12 Rue du Riesling", "68000", "Colmar", "06 42 23 23 34");
-        listEleve1.add(eleve11);
+        listEleve.add(eleve11);
         Eleve eleve12 = new Eleve("Snoop", "Dogg", "12 Rue du Riesling", "68000", "Colmar", "06 42 23 23 34");
-        listEleve1.add(eleve12);
+        listEleve.add(eleve12);
         Eleve eleve13 = new Eleve("Taylor", "Swift", "12 Rue du Riesling", "68000", "Colmar", "06 42 23 23 34");
-        listEleve1.add(eleve13);
+        listEleve.add(eleve13);
         Eleve eleve14 = new Eleve("Maxime", "Bosshard", "12 Rue du Riesling", "68000", "NY", "06 42 23 23 34");
-        listEleve1.add(eleve14);
+        listEleve.add(eleve14);
         Eleve eleve15 = new Eleve("Lucas", "Consonni", "12 Rue du Riesling", "68000", "Pays des Merveilles", "06 42 23 23 34");
-        listEleve1.add(eleve15);
+        listEleve.add(eleve15);
         Eleve eleve16 = new Eleve("Lucas", "Boubrit", "12 Rue du Riesling", "68000", "Monaco", "06 42 23 23 34");
-        listEleve1.add(eleve16);
+        listEleve.add(eleve16);
         Eleve eleve17 = new Eleve("Sophie", "Rousselot", "12 Rue du Riesling", "68000", "Colmar", "06 42 23 23 34");
-        listEleve1.add(eleve17);
+        listEleve.add(eleve17);
         Eleve eleve18 = new Eleve("Vincent", "Zamora", "12 Rue du Riesling", "68000", "Colmar", "06 42 23 23 34");
-        listEleve1.add(eleve18);
+        listEleve.add(eleve18);
         Eleve eleve19 = new Eleve("Damien", "Seyve", "12 Rue du Riesling", "68000", "Colmar", "06 42 23 23 34");
-        listEleve1.add(eleve19);
+        listEleve.add(eleve19);
         Eleve eleve20 = new Eleve("Geoffroy", "Crucy", "12 Rue du Riesling", "68000", "Colmar", "06 42 23 23 34");
-        listEleve1.add(eleve20);
+        listEleve.add(eleve20);
         Eleve eleve21 = new Eleve("Théo", "Marchal", "12 Rue du Riesling", "68000", "Colmar", "06 42 23 23 34");
-        listEleve1.add(eleve21);
+        listEleve.add(eleve21);
         Eleve eleve22 = new Eleve("Camille", "Pepe", "12 Rue du Riesling", "68000", "Colmar", "06 42 23 23 34");
-        listEleve1.add(eleve22);
+        listEleve.add(eleve22);
         Eleve eleve23 = new Eleve("Sarah", "Maestre", "12 Rue du Riesling", "68000", "Colmar", "06 42 23 23 34");
-        listEleve1.add(eleve23);
+        listEleve.add(eleve23);
         Eleve eleve24 = new Eleve("Caroline", "Lambelin", "12 Rue du Riesling", "68000", "Colmar", "06 42 23 23 34");
-        listEleve1.add(eleve24);
+        listEleve.add(eleve24);
         Eleve eleve25 = new Eleve("Anaïs", "Delaporte", "12 Rue du Riesling", "68000", "Colmar", "06 42 23 23 34");
-        listEleve1.add(eleve25);
+        listEleve.add(eleve25);
         Eleve eleve26 = new Eleve("Jelena", "Rajic", "12 Rue du Riesling", "68000", "Colmar", "06 42 23 23 34");
-        listEleve1.add(eleve26);
+        listEleve.add(eleve26);
         Eleve eleve27 = new Eleve("Jensen", "Interceptor", "12 Rue du Riesling", "68000", "NY", "06 42 23 23 34");
-        listEleve1.add(eleve27);
+        listEleve.add(eleve27);
         Eleve eleve28 = new Eleve("Justin", "Timberlake", "12 Rue du Riesling", "68000", "Pays des Merveilles", "06 42 23 23 34");
-        listEleve1.add(eleve28);
+        listEleve.add(eleve28);
         Eleve eleve29 = new Eleve("Justin", "Bieber", "12 Rue du Riesling", "68000", "Monaco", "06 42 23 23 34");
-        listEleve1.add(eleve29);
+        listEleve.add(eleve29);
         Eleve eleve30 = new Eleve("Bruce", "Wayne", "12 Rue du Riesling", "68000", "Colmar", "06 42 23 23 34");
-        listEleve1.add(eleve30);
+        listEleve.add(eleve30);
         Eleve eleve31 = new Eleve("Bradley", "Cooper", "12 Rue du Riesling", "68000", "Colmar", "06 42 23 23 34");
-        listEleve1.add(eleve31);
+        listEleve.add(eleve31);
         Eleve eleve32 = new Eleve("Bruno", "Mars", "12 Rue du Riesling", "68000", "Colmar", "06 42 23 23 34");
-        listEleve1.add(eleve32);
+        listEleve.add(eleve32);
         Eleve eleve33 = new Eleve("Dr", "Dre", "12 Rue du Riesling", "68000", "Colmar", "06 42 23 23 34");
-        listEleve1.add(eleve33);
+        listEleve.add(eleve33);
         Eleve eleve34 = new Eleve("Kanye", "West", "12 Rue du Riesling", "68000", "Colmar", "06 42 23 23 34");
-        listEleve1.add(eleve34);
+        listEleve.add(eleve34);
         Eleve eleve35 = new Eleve("Kendrick", "Lamar", "12 Rue du Riesling", "68000", "Colmar", "06 42 23 23 34");
-        listEleve1.add(eleve35);
+        listEleve.add(eleve35);
         Eleve eleve36 = new Eleve("Kid", "Cudi", "12 Rue du Riesling", "68000", "Colmar", "06 42 23 23 34");
-        listEleve1.add(eleve36);
+        listEleve.add(eleve36);
         Eleve eleve37 = new Eleve("Robbie", "Williams", "12 Rue du Riesling", "68000", "Colmar", "06 42 23 23 34");
-        listEleve1.add(eleve37);
+        listEleve.add(eleve37);
         Eleve eleve38 = new Eleve("Snoop", "Dogg", "12 Rue du Riesling", "68000", "Colmar", "06 42 23 23 34");
-        listEleve1.add(eleve38);
+        listEleve.add(eleve38);
         Eleve eleve39 = new Eleve("Taylor", "Swift", "12 Rue du Riesling", "68000", "Colmar", "06 42 23 23 34");
-        listEleve1.add(eleve39);
+        listEleve.add(eleve39);
 
         listView = (ListView) layout.findViewById(R.id.lvListeEleve);
 
-        for (Eleve e: listEleve1)
-        {
-            //SerializationUtil.serialize(e, fileName);
-            FileOutputStream fos = null;
-            try {
-                fos = new FileOutputStream(getContext().getDir("Documents", getContext().MODE_PRIVATE) + "/"+fileName , true);
-                ObjectOutputStream oos = new ObjectOutputStream(fos);
-                oos.writeObject(e);
-                fos.close();
-            } catch(Exception ex)
-            {
-                ex.printStackTrace();
-            }
-
-        }
-
-
-
-        FileOutputStream fos = null;
-        Object obj = null;
-        try {
-            FileInputStream objFile = new FileInputStream(getContext().getDir("Documents", getContext().MODE_PRIVATE)+"/"+fileName);
-            ObjectInputStream ois = new ObjectInputStream(objFile);
-            obj = ois.readObject();
-            ois.close();
-
-        } catch(Exception ex)
-        {
-            ex.printStackTrace();
-        }
-
-        test = (String) obj;
-
-        /*for (Object o: fileName)
-        {
-            try
-            {
-
-                o =
-                Eleve e = (Eleve)o;
-                listEleveAffichage.add(e);
-
-            }
-            catch (Exception ex)
-            {
-                ex.printStackTrace();
-            }
-        }*/
-
-
-        EleveListAdapter eleveListAdapter = new EleveListAdapter(getContext(), listEleve1);
+        EleveListAdapter eleveListAdapter = new EleveListAdapter(getContext(), listEleve);
         listView.setAdapter(eleveListAdapter);
 
         swipeDetector = new SwipeDetector();
         listView.setOnTouchListener(swipeDetector);
-
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -218,7 +151,7 @@ public class EleveListeFragment extends Fragment {
                                 }
                             })
                             .create();
-                    d.setOwnerActivity(getActivity()); // why can't the builder do this?
+                    d.setOwnerActivity(getActivity());
                     d.show();
                 } else {
                     FragmentManager fragmentManager = getActivity().getSupportFragmentManager();

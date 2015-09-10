@@ -1,10 +1,11 @@
 package fr.damienseyve.mapeleve;
 
-import java.io.Serializable;
+
 import java.util.List;
 
-public class Eleve implements Serializable {
+public class Eleve {
 
+    private long id;
     public String prenomEleve;
     public String nomEleve;
     public String adresseEleve;
@@ -12,15 +13,19 @@ public class Eleve implements Serializable {
     public String villeEleve;
     public String telEleve;
     public static Eleve eleveSelect;
-    public static List<Eleve> listEleve;
 
-    public Eleve(String _prenomEleve, String _nomEleve, String _adresseEleve, String _cpEleve, String _villeEleve, String _telEleve) {
+    public Eleve(long _id, String _prenomEleve, String _nomEleve, String _adresseEleve, String _cpEleve, String _villeEleve, String _telEleve) {
+        this.id = _id;
         this.prenomEleve = _prenomEleve;
         this.nomEleve = _nomEleve;
         this.adresseEleve = _adresseEleve;
         this.cpEleve = _cpEleve;
         this.villeEleve = _villeEleve;
         this.telEleve = _telEleve;
+    }
+
+    public long getId() {
+        return id;
     }
 
     public String getPrenomEleve() {
@@ -45,6 +50,10 @@ public class Eleve implements Serializable {
 
     public String getTelEleve() {
         return telEleve;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public void setVilleEleve(String villeEleve) {
