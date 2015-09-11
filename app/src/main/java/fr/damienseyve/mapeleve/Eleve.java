@@ -1,11 +1,9 @@
 package fr.damienseyve.mapeleve;
 
 
-import java.util.List;
-
 public class Eleve {
 
-    private long id;
+    public int id;
     public String prenomEleve;
     public String nomEleve;
     public String adresseEleve;
@@ -14,17 +12,23 @@ public class Eleve {
     public String telEleve;
     public static Eleve eleveSelect;
 
-    public Eleve(long _id, String _prenomEleve, String _nomEleve, String _adresseEleve, String _cpEleve, String _villeEleve, String _telEleve) {
-        this.id = _id;
-        this.prenomEleve = _prenomEleve;
-        this.nomEleve = _nomEleve;
-        this.adresseEleve = _adresseEleve;
-        this.cpEleve = _cpEleve;
-        this.villeEleve = _villeEleve;
-        this.telEleve = _telEleve;
+    public Eleve(int id, String prenomEleve, String nomEleve, String adresseEleve, String cpEleve, String villeEleve, String telEleve) {
+        super();
+        this.id = id;
+        this.prenomEleve = prenomEleve;
+        this.nomEleve = nomEleve;
+        this.adresseEleve = adresseEleve;
+        this.cpEleve = cpEleve;
+        this.villeEleve = villeEleve;
+        this.telEleve = telEleve;
     }
 
-    public long getId() {
+    @Override
+    public String toString() {
+        return "[Contact] " + id + prenomEleve + nomEleve + adresseEleve + cpEleve + villeEleve + telEleve;
+    }
+
+    public int getId() {
         return id;
     }
 
@@ -52,7 +56,7 @@ public class Eleve {
         return telEleve;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

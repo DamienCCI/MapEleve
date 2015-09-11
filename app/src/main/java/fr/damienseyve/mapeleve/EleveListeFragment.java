@@ -3,8 +3,10 @@ package fr.damienseyve.mapeleve;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
+import android.content.ContentValues;
 import android.content.DialogInterface;
+import android.database.Cursor;
+import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -19,16 +21,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.OptionalDataException;
-import java.io.Serializable;
-import java.io.StreamCorruptedException;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -36,6 +28,7 @@ public class EleveListeFragment extends Fragment {
 
     ListView listView;
     SwipeDetector swipeDetector;
+    private Uri todoUri;
 
 
     @Nullable
@@ -43,90 +36,46 @@ public class EleveListeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_eleve_liste, container, false);
 
-        ArrayList<Eleve> listEleve = new ArrayList<>();
-        Eleve eleve1 = new Eleve("50", "Cent", "12 Rue du Riesling", "68000", "NY", "06 42 23 23 34");
-        listEleve.add(eleve1);
-        Eleve eleve2 = new Eleve("Alice", "Liddell", "12 Rue du Riesling", "68000", "Pays des Merveilles", "06 42 23 23 34");
-        listEleve.add(eleve2);
-        Eleve eleve3 = new Eleve("Anne", "Hathaway", "12 Rue du Riesling", "68000", "Monaco", "06 42 23 23 34");
-        listEleve.add(eleve3);
-        Eleve eleve4 = new Eleve("Barney", "Stinson", "12 Rue du Riesling", "68000", "Colmar", "06 42 23 23 34");
-        listEleve.add(eleve4);
-        Eleve eleve5 = new Eleve("Bradley", "Cooper", "12 Rue du Riesling", "68000", "Colmar", "06 42 23 23 34");
-        listEleve.add(eleve5);
-        Eleve eleve6 = new Eleve("Bruno", "Mars", "12 Rue du Riesling", "68000", "Colmar", "06 42 23 23 34");
-        listEleve.add(eleve6);
-        Eleve eleve7 = new Eleve("Dr", "Dre", "12 Rue du Riesling", "68000", "Colmar", "06 42 23 23 34");
-        listEleve.add(eleve7);
-        Eleve eleve8 = new Eleve("Kanye", "West", "12 Rue du Riesling", "68000", "Colmar", "06 42 23 23 34");
-        listEleve.add(eleve8);
-        Eleve eleve9 = new Eleve("Kendrick", "Lamar", "12 Rue du Riesling", "68000", "Colmar", "06 42 23 23 34");
-        listEleve.add(eleve9);
-        Eleve eleve10 = new Eleve("Kid", "Cudi", "12 Rue du Riesling", "68000", "Colmar", "06 42 23 23 34");
-        listEleve.add(eleve10);
-        Eleve eleve11 = new Eleve("Robbie", "Williams", "12 Rue du Riesling", "68000", "Colmar", "06 42 23 23 34");
-        listEleve.add(eleve11);
-        Eleve eleve12 = new Eleve("Snoop", "Dogg", "12 Rue du Riesling", "68000", "Colmar", "06 42 23 23 34");
-        listEleve.add(eleve12);
-        Eleve eleve13 = new Eleve("Taylor", "Swift", "12 Rue du Riesling", "68000", "Colmar", "06 42 23 23 34");
-        listEleve.add(eleve13);
-        Eleve eleve14 = new Eleve("Maxime", "Bosshard", "12 Rue du Riesling", "68000", "NY", "06 42 23 23 34");
-        listEleve.add(eleve14);
-        Eleve eleve15 = new Eleve("Lucas", "Consonni", "12 Rue du Riesling", "68000", "Pays des Merveilles", "06 42 23 23 34");
-        listEleve.add(eleve15);
-        Eleve eleve16 = new Eleve("Lucas", "Boubrit", "12 Rue du Riesling", "68000", "Monaco", "06 42 23 23 34");
-        listEleve.add(eleve16);
-        Eleve eleve17 = new Eleve("Sophie", "Rousselot", "12 Rue du Riesling", "68000", "Colmar", "06 42 23 23 34");
-        listEleve.add(eleve17);
-        Eleve eleve18 = new Eleve("Vincent", "Zamora", "12 Rue du Riesling", "68000", "Colmar", "06 42 23 23 34");
-        listEleve.add(eleve18);
-        Eleve eleve19 = new Eleve("Damien", "Seyve", "12 Rue du Riesling", "68000", "Colmar", "06 42 23 23 34");
-        listEleve.add(eleve19);
-        Eleve eleve20 = new Eleve("Geoffroy", "Crucy", "12 Rue du Riesling", "68000", "Colmar", "06 42 23 23 34");
-        listEleve.add(eleve20);
-        Eleve eleve21 = new Eleve("Théo", "Marchal", "12 Rue du Riesling", "68000", "Colmar", "06 42 23 23 34");
-        listEleve.add(eleve21);
-        Eleve eleve22 = new Eleve("Camille", "Pepe", "12 Rue du Riesling", "68000", "Colmar", "06 42 23 23 34");
-        listEleve.add(eleve22);
-        Eleve eleve23 = new Eleve("Sarah", "Maestre", "12 Rue du Riesling", "68000", "Colmar", "06 42 23 23 34");
-        listEleve.add(eleve23);
-        Eleve eleve24 = new Eleve("Caroline", "Lambelin", "12 Rue du Riesling", "68000", "Colmar", "06 42 23 23 34");
-        listEleve.add(eleve24);
-        Eleve eleve25 = new Eleve("Anaïs", "Delaporte", "12 Rue du Riesling", "68000", "Colmar", "06 42 23 23 34");
-        listEleve.add(eleve25);
-        Eleve eleve26 = new Eleve("Jelena", "Rajic", "12 Rue du Riesling", "68000", "Colmar", "06 42 23 23 34");
-        listEleve.add(eleve26);
-        Eleve eleve27 = new Eleve("Jensen", "Interceptor", "12 Rue du Riesling", "68000", "NY", "06 42 23 23 34");
-        listEleve.add(eleve27);
-        Eleve eleve28 = new Eleve("Justin", "Timberlake", "12 Rue du Riesling", "68000", "Pays des Merveilles", "06 42 23 23 34");
-        listEleve.add(eleve28);
-        Eleve eleve29 = new Eleve("Justin", "Bieber", "12 Rue du Riesling", "68000", "Monaco", "06 42 23 23 34");
-        listEleve.add(eleve29);
-        Eleve eleve30 = new Eleve("Bruce", "Wayne", "12 Rue du Riesling", "68000", "Colmar", "06 42 23 23 34");
-        listEleve.add(eleve30);
-        Eleve eleve31 = new Eleve("Bradley", "Cooper", "12 Rue du Riesling", "68000", "Colmar", "06 42 23 23 34");
-        listEleve.add(eleve31);
-        Eleve eleve32 = new Eleve("Bruno", "Mars", "12 Rue du Riesling", "68000", "Colmar", "06 42 23 23 34");
-        listEleve.add(eleve32);
-        Eleve eleve33 = new Eleve("Dr", "Dre", "12 Rue du Riesling", "68000", "Colmar", "06 42 23 23 34");
-        listEleve.add(eleve33);
-        Eleve eleve34 = new Eleve("Kanye", "West", "12 Rue du Riesling", "68000", "Colmar", "06 42 23 23 34");
-        listEleve.add(eleve34);
-        Eleve eleve35 = new Eleve("Kendrick", "Lamar", "12 Rue du Riesling", "68000", "Colmar", "06 42 23 23 34");
-        listEleve.add(eleve35);
-        Eleve eleve36 = new Eleve("Kid", "Cudi", "12 Rue du Riesling", "68000", "Colmar", "06 42 23 23 34");
-        listEleve.add(eleve36);
-        Eleve eleve37 = new Eleve("Robbie", "Williams", "12 Rue du Riesling", "68000", "Colmar", "06 42 23 23 34");
-        listEleve.add(eleve37);
-        Eleve eleve38 = new Eleve("Snoop", "Dogg", "12 Rue du Riesling", "68000", "Colmar", "06 42 23 23 34");
-        listEleve.add(eleve38);
-        Eleve eleve39 = new Eleve("Taylor", "Swift", "12 Rue du Riesling", "68000", "Colmar", "06 42 23 23 34");
-        listEleve.add(eleve39);
+
+        EleveManip eleveManip = new EleveManip(getContext());
+
+        eleveManip.open();
+
+        // Création et insertion d'un contact
+        Eleve eleve = new Eleve(0, "Damien", "SEYVE", "12 Rue du Riesling", "68000", "Colmar", "08 00 00 00 00");
+        eleveManip.insertEleve(eleve);
+
+        // Récupération du contact
+        Eleve eleveFromBdd = eleveManip.getFirstContactWithNumeroTelephone("066045");
+        // Si le contact à bien été ajouté à la BDD, on affiche les données du
+        // contact dans un Toast et on modifie son numéro de téléphone dans la
+        // BDD
+        if (eleveFromBdd != null) {
+            Toast.makeText(getContext(), eleveFromBdd.toString(), Toast.LENGTH_LONG).show();
+            eleveFromBdd.setTelEleve("08 00 00 00 00");
+            eleveManip.updateContact(eleveFromBdd.getId(), eleveFromBdd);
+        }
+
+        // Récupération du contact grâce au nouveau numéro de téléphone
+        eleveFromBdd = eleveManip.getFirstContactWithNumeroTelephone("08 00 00 00 00");
+        // S'il existe un contact possédant ce numéro dans la BDD, alors on
+        // affiche ses données dans un Toast et on le supprime de la base de
+        // données
+        if (eleveFromBdd != null) {
+            Toast.makeText(getContext(), eleveFromBdd.toString(), Toast.LENGTH_LONG)
+                    .show();
+            eleveManip.removeContactWithID(eleveFromBdd.getId());
+        }
+
+        eleveManip.close();
+
+        //http://www.vogella.com/tutorials/AndroidSQLite/article.html
+
 
         listView = (ListView) layout.findViewById(R.id.lvListeEleve);
 
-        EleveListAdapter eleveListAdapter = new EleveListAdapter(getContext(), listEleve);
-        listView.setAdapter(eleveListAdapter);
+        //EleveListAdapter eleveListAdapter = new EleveListAdapter(getContext(), values);
+        //listView.setAdapter(eleveListAdapter);
 
         swipeDetector = new SwipeDetector();
         listView.setOnTouchListener(swipeDetector);
@@ -162,19 +111,17 @@ public class EleveListeFragment extends Fragment {
                             .addToBackStack(null)
                             .commit();
                 }
-
             }
         });
-
-
         return layout;
     }
 
-        @Override
+
+    @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         // Indicate that this fragment would like to influence the set of actions in the action bar.
-        setHasOptionsMenu(true);
+            setHasOptionsMenu(true);
     }
 
     @Override
@@ -202,14 +149,21 @@ public class EleveListeFragment extends Fragment {
 
     @Override
     public void onResume() {
+        //datasource.open();
         super.onResume();
     }
 
     @Override
     public void onDestroy() {
+        //datasource.close();
         super.onDestroy();
     }
 
+    @Override
+    public  void onPause() {
+        //datasource.close();
+        super.onPause();
+    }
     @Override
     public void onLowMemory() {
         super.onLowMemory();

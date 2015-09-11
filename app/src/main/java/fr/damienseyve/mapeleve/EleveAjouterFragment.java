@@ -99,7 +99,7 @@ public class EleveAjouterFragment extends Fragment{
                 villeEleve = etVilleEleve.getText().toString();
                 telEleve = etTelEleve.getText().toString();
 
-                Eleve newEleve = new Eleve(prenomEleve, nomEleve, adresseEleve, cpEleve, villeEleve, telEleve);
+                //Eleve newEleve = new Eleve(prenomEleve, nomEleve, adresseEleve, cpEleve, villeEleve, telEleve);
 
                 Toast.makeText(getActivity(), "Enregistrer", Toast.LENGTH_SHORT).show();
 

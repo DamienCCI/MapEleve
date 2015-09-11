@@ -121,7 +121,7 @@ public class EleveModifierFragment extends Fragment {
                 villeEleve = etVilleEleve.getText().toString();
                 telEleve = etTelEleve.getText().toString();
 
-                Eleve.eleveSelect = new Eleve(prenomEleve, nomEleve, adresseEleve, cpEleve, villeEleve, telEleve);
+                //Eleve.eleveSelect = new Eleve(prenomEleve, nomEleve, adresseEleve, cpEleve, villeEleve, telEleve);
 
                 Toast.makeText(getActivity(), "Enregistrer " + Eleve.eleveSelect.toString(), Toast.LENGTH_SHORT).show();
 
@@ -145,7 +145,6 @@ public class EleveModifierFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
     }
-
 
     @Override
     public void onLowMemory() {
