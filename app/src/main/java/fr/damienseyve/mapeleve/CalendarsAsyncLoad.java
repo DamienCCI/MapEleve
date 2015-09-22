@@ -7,6 +7,8 @@ import java.io.IOException;
 
 public class CalendarsAsyncLoad extends CalendarAsyncTask {
 
+
+    // Cette classe permet de récupérer la liste des calendriers à partir du compte sélectionner
     CalendarsAsyncLoad(PlanningListeFragment calendarSample) {
         super(calendarSample);
     }

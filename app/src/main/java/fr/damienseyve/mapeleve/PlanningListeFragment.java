@@ -60,10 +60,13 @@ public class PlanningListeFragment extends Fragment {
         Logger.getLogger("com.google.api.client").setLevel(LOGGING_LEVEL);
 
 
-        // Google Accounts
+        // Google Accounts permet de récupérer un compte Google par le biais du système lui-même
+        // Le choix est enregistrer dans l'application.
         credential = GoogleAccountCredential.usingOAuth2(this.getActivity(), Collections.singleton(CalendarScopes.CALENDAR));
         SharedPreferences settings = this.getActivity().getPreferences(Context.MODE_PRIVATE);
         credential.setSelectedAccountName(settings.getString(PREF_ACCOUNT_NAME, null));
+
+
         // Calendar client
         client = new com.google.api.services.calendar.Calendar.Builder(
                 transport, jsonFactory, credential).setApplicationName("Google-CalendarAndroidSample/1.0")
@@ -78,6 +81,9 @@ public class PlanningListeFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Object o = listView.getItemAtPosition(position);
+
+                // CalendarInfoSelect permet de stocker toute les valeurs de l'objet sélectionner et d'ainsi les
+                // utilisé dans le prochain fragment. C'est un objet static.
                 CalendarInfo.calendarInfoSelect = (CalendarInfo) o;
 
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
@@ -122,6 +128,9 @@ public class PlanningListeFragment extends Fragment {
         setHasOptionsMenu(true);
     }
 
+
+    // Cette méthode permet de donner toutes les instructions que l'on veux faire exécuter quand on
+    // Veux rafraîchir la vue.
     void refreshView() {
         adapter = new ArrayAdapter<CalendarInfo>(
                 getActivity(), android.R.layout.simple_list_item_1, model.toSortedArray()) {

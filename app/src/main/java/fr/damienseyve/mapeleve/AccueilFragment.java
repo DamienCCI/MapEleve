@@ -20,6 +20,8 @@ public class AccueilFragment extends Fragment implements OnMapReadyCallback {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        // Récupération de l'élément MapView
         View layout = inflater.inflate(R.layout.fragment_map, container, false);
 
         gMapView = (MapView) layout.findViewById(R.id.mapview);
