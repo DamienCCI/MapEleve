@@ -37,7 +37,7 @@ public class AccueilFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        NavigationDrawerActivity.actionBar.setTitle("Accueil");
+        //NavigationDrawerActivity.actionBar.setTitle("Accueil");
     }
 
     @Override

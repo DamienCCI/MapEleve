@@ -17,6 +17,8 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 
 public class LeconHistoriqueFragment extends Fragment implements OnMapReadyCallback {
 
@@ -66,8 +68,10 @@ public class LeconHistoriqueFragment extends Fragment implements OnMapReadyCallb
         // Vue normale
         map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
-        // Mouvement de camera a l'ouverture
+        /*// Mouvement de camera a l'ouverture
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(belfort, 13));
+        new PolylineOptions().add(new LatLng(47.1203,7.1235),)
+        map.addPolyline()*/
     }
 
     @Override

@@ -55,6 +55,8 @@ public class EleveFicheFragment extends Fragment {
         tvVilleEleve.setText(villeEleve);
         tvTelEleve.setText(telEleve);
 
+        NavigationDrawerActivity.actionBar.setTitle(Eleve.eleveSelect.getPrenomEleve() + " " +
+                Eleve.eleveSelect.getNomEleve());
         return layout;
     }
 
@@ -68,8 +70,6 @@ public class EleveFicheFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_eleve_fiche, menu);
-        NavigationDrawerActivity.actionBar.setTitle(Eleve.eleveSelect.getPrenomEleve() + " " +
-                Eleve.eleveSelect.getNomEleve());
         super.onCreateOptionsMenu(menu, inflater);
     }
 

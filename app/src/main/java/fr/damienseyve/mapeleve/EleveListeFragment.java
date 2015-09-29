@@ -3,9 +3,7 @@ package fr.damienseyve.mapeleve;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.ContentValues;
 import android.content.DialogInterface;
-import android.database.Cursor;
 import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -21,7 +19,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import java.util.List;
+import java.util.ArrayList;
 
 
 public class EleveListeFragment extends Fragment {
@@ -29,60 +27,33 @@ public class EleveListeFragment extends Fragment {
     ListView listView;
     SwipeDetector swipeDetector;
     private Uri todoUri;
+    EleveManip eleveManip;
 
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_eleve_liste, container, false);
-
-
-        EleveManip eleveManip = new EleveManip(getContext());
-
+        NavigationDrawerActivity.actionBar.setTitle("Liste des élèves");
+        eleveManip = new EleveManip(getContext());
+        //r&écupération liste d'éleves
         eleveManip.open();
-
-        // Création et insertion d'un contact
-        Eleve eleve = new Eleve(0, "Damien", "SEYVE", "12 Rue du Riesling", "68000", "Colmar", "08 00 00 00 00");
-        eleveManip.insertEleve(eleve);
-
-        // Récupération du contact
-        Eleve eleveFromBdd = eleveManip.getFirstContactWithNumeroTelephone("066045");
-        // Si le contact à bien été ajouté à la BDD, on affiche les données du
-        // contact dans un Toast et on modifie son numéro de téléphone dans la
-        // BDD
-        if (eleveFromBdd != null) {
-            Toast.makeText(getContext(), eleveFromBdd.toString(), Toast.LENGTH_LONG).show();
-            eleveFromBdd.setTelEleve("08 00 00 00 00");
-            eleveManip.updateContact(eleveFromBdd.getId(), eleveFromBdd);
-        }
-
-        // Récupération du contact grâce au nouveau numéro de téléphone
-        eleveFromBdd = eleveManip.getFirstContactWithNumeroTelephone("08 00 00 00 00");
-        // S'il existe un contact possédant ce numéro dans la BDD, alors on
-        // affiche ses données dans un Toast et on le supprime de la base de
-        // données
-        if (eleveFromBdd != null) {
-            Toast.makeText(getContext(), eleveFromBdd.toString(), Toast.LENGTH_LONG)
-                    .show();
-            eleveManip.removeContactWithID(eleveFromBdd.getId());
-        }
-
+        ArrayList<Eleve> eleves = eleveManip.getAllEleves();
         eleveManip.close();
-
         //http://www.vogella.com/tutorials/AndroidSQLite/article.html
 
 
         listView = (ListView) layout.findViewById(R.id.lvListeEleve);
 
-        //EleveListAdapter eleveListAdapter = new EleveListAdapter(getContext(), values);
-        //listView.setAdapter(eleveListAdapter);
+        final EleveListAdapter eleveListAdapter = new EleveListAdapter(getContext(), eleves);
+        listView.setAdapter(eleveListAdapter);
 
         swipeDetector = new SwipeDetector();
         listView.setOnTouchListener(swipeDetector);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
 
                 Object o = listView.getItemAtPosition(position);
                 Eleve.eleveSelect = (Eleve) o;
@@ -96,7 +67,11 @@ public class EleveListeFragment extends Fragment {
                             .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    Toast.makeText(getContext(), "Suppression de l'élève...", Toast.LENGTH_SHORT).show();
+                                    eleveManip.open();
+                                    eleveManip.removeEleveWithID(Eleve.eleveSelect.getId());
+                                    eleveManip.close();
+                                    eleveListAdapter.removeAt(position);
+                                    Toast.makeText(getContext(), "Suppression de l'élève "+ Eleve.eleveSelect.getNomEleve(), Toast.LENGTH_SHORT).show();
                                 }
                             })
                             .create();
@@ -127,7 +102,7 @@ public class EleveListeFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_eleve_liste, menu);
-        NavigationDrawerActivity.actionBar.setTitle("Liste des élèves");
+        //NavigationDrawerActivity.actionBar.setTitle("Liste des élèves");
         super.onCreateOptionsMenu(menu, inflater);
     }
 

@@ -64,5 +64,8 @@ public class EleveListAdapter extends BaseAdapter{
         return itemView;
     }
 
-
+    public void removeAt(int position){
+        listeEleve.remove(position);
+        notifyDataSetChanged();
+    }
 }

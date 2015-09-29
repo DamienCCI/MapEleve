@@ -19,6 +19,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 
 
 public class EleveAjouterFragment extends Fragment{
@@ -99,7 +100,11 @@ public class EleveAjouterFragment extends Fragment{
                 villeEleve = etVilleEleve.getText().toString();
                 telEleve = etTelEleve.getText().toString();
 
-                //Eleve newEleve = new Eleve(prenomEleve, nomEleve, adresseEleve, cpEleve, villeEleve, telEleve);
+                EleveManip eleveManip = new EleveManip(getContext());
+                eleveManip.open();
+                Eleve newEleve = new Eleve(eleveManip.getLastID(),prenomEleve, nomEleve, adresseEleve, cpEleve, villeEleve, telEleve);
+                eleveManip.insertEleve(newEleve);
+                eleveManip.close();
 
                 Toast.makeText(getActivity(), "Enregistrer", Toast.LENGTH_SHORT).show();
 

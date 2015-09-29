@@ -123,7 +123,14 @@ public class EleveModifierFragment extends Fragment {
 
                 //Eleve.eleveSelect = new Eleve(prenomEleve, nomEleve, adresseEleve, cpEleve, villeEleve, telEleve);
 
+                Eleve eleve = new Eleve(Eleve.eleveSelect.getId(),prenomEleve, nomEleve, adresseEleve, cpEleve, villeEleve, telEleve);
+                Eleve.eleveSelect = eleve;
                 Toast.makeText(getActivity(), "Enregistrer " + Eleve.eleveSelect.toString(), Toast.LENGTH_SHORT).show();
+
+                EleveManip eleveManip = new EleveManip(getContext());
+                eleveManip.open();
+                eleveManip.updateContact(eleve.getId(),eleve);
+                eleveManip.close();
 
                 Fragment frgListeEleveValide;
                 frgListeEleveValide = new EleveFicheFragment();

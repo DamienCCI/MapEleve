@@ -4,6 +4,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.ArrayList;
+
 public class EleveManip {
 
     private static final int versionBdd = 1;
@@ -108,7 +110,7 @@ public class EleveManip {
      *            l'identifiant du contact à supprimer
      * @return le nombre de contacts supprimés
      */
-    public int removeContactWithID(int id) {
+    public int removeEleveWithID(int id) {
         return baseDeDonnee.delete(nomTableEleve, colId + " = " + id, null);
     }
 
@@ -123,8 +125,10 @@ public class EleveManip {
     public Eleve getFirstContactWithNumeroTelephone(String numeroTelephone) {
         Cursor c = baseDeDonnee.query(nomTableEleve, new String[] { colId, colPrenom,
                 colNom, colAdresse, colCp, colVille, colTel }, colTel + " LIKE \""+ numeroTelephone + "\"", null, null, null, null);
-
-        return cursorToEleve(c);
+        c.moveToFirst();
+        Eleve e = cursorToEleve(c);
+        c.close();
+        return e;
     }
 
     /**
@@ -140,7 +144,6 @@ public class EleveManip {
             return null;
 
         // Sinon on se place sur le premier élément
-        c.moveToFirst();
 
         Eleve eleve = new Eleve(0, "", "", "", "", "", "");
         eleve.setId(c.getInt(numColId));
@@ -151,8 +154,35 @@ public class EleveManip {
         eleve.setVilleEleve(c.getString(numColVille));
         eleve.setTelEleve(c.getString(numColTel));
 
-        c.close();
+        //c.close();
 
         return eleve;
+    }
+
+    public ArrayList<Eleve> getAllEleves (){
+        ArrayList<Eleve> eleves = new ArrayList<>();
+
+        Cursor c = baseDeDonnee.query(nomTableEleve, new String[] { colId, colPrenom,
+                colNom, colAdresse, colCp, colVille, colTel }, null , null, null, null, null);
+        if(c.getCount()>0) {
+            c.moveToFirst();
+            eleves.add(cursorToEleve(c));
+            while (c.moveToNext()) {
+                eleves.add(cursorToEleve(c));
+            }
+        }
+        return eleves;
+    }
+
+    public int getLastID(){
+        Cursor c = baseDeDonnee.query(nomTableEleve, new String[] { colId, colPrenom,
+                colNom, colAdresse, colCp, colVille, colTel }, null , null, null, null, null);
+        if(c.getCount()>0) {
+            c.moveToLast();
+            Eleve eleve = cursorToEleve(c);
+            return eleve.getId()+1;
+        }else{
+            return 0;
+        }
     }
 }
