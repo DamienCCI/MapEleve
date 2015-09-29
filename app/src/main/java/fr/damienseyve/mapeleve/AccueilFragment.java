@@ -24,6 +24,7 @@ public class AccueilFragment extends Fragment implements OnMapReadyCallback {
         // Récupération de l'élément MapView
         View layout = inflater.inflate(R.layout.fragment_map, container, false);
 
+        // Récupération de la carte du layout
         gMapView = (MapView) layout.findViewById(R.id.mapview);
         gMapView.onCreate(savedInstanceState);
         gMapView.getMapAsync(this);
@@ -37,7 +38,7 @@ public class AccueilFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        //NavigationDrawerActivity.actionBar.setTitle("Accueil");
+
     }
 
     @Override

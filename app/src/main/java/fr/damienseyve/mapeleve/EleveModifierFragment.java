@@ -125,7 +125,7 @@ public class EleveModifierFragment extends Fragment {
 
                 Eleve eleve = new Eleve(Eleve.eleveSelect.getId(),prenomEleve, nomEleve, adresseEleve, cpEleve, villeEleve, telEleve);
                 Eleve.eleveSelect = eleve;
-                Toast.makeText(getActivity(), "Enregistrer " + Eleve.eleveSelect.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Enregistrer ", Toast.LENGTH_SHORT).show();
 
                 EleveManip eleveManip = new EleveManip(getContext());
                 eleveManip.open();

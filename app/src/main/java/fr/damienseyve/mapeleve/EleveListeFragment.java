@@ -34,7 +34,6 @@ public class EleveListeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_eleve_liste, container, false);
-        NavigationDrawerActivity.actionBar.setTitle("Liste des élèves");
         eleveManip = new EleveManip(getContext());
         //r&écupération liste d'éleves
         eleveManip.open();
@@ -102,7 +101,7 @@ public class EleveListeFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_eleve_liste, menu);
-        //NavigationDrawerActivity.actionBar.setTitle("Liste des élèves");
+        NavigationDrawerActivity.actionBar.setTitle("Liste des élèves");
         super.onCreateOptionsMenu(menu, inflater);
     }
 
